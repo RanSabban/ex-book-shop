@@ -18,7 +18,7 @@ function render(){
             <td>${book.price}</td>
             <td>
             <button>Read</button>
-            <button>Update</button>
+            <button onclick="onUpdateBook('${book.id}')">Update</button>
             <button onclick="onRemoveBook('${book.id}')">Delete</button>
             </td>
         </tr>
@@ -32,6 +32,12 @@ function render(){
 function onRemoveBook(id){
     // console.log('id',id)
     removeBook(id)
+    render()
+}
+
+function onUpdateBook(id){
+    // console.log('id',id);
+    updateBook(id)
     render()
 }
 
