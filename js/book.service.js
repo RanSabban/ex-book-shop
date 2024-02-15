@@ -10,3 +10,7 @@ function getBooks(){
     ]
 }
 
+function removeBook(id){
+    const index = gBooks.findIndex(book => book.id === id)
+    gBooks.splice(index,1)
+}

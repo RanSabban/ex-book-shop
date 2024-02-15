@@ -19,7 +19,7 @@ function render(){
             <td>
             <button>Read</button>
             <button>Update</button>
-            <button>Delete</button>
+            <button onclick="onRemoveBook('${book.id}')">Delete</button>
             </td>
         </tr>
         `
@@ -27,6 +27,12 @@ function render(){
     strHTML+= tableHTML.join('') + '</table>'
     const tableEl = document.querySelector('table')
     tableEl.innerHTML = strHTML
+}
+
+function onRemoveBook(id){
+    // console.log('id',id)
+    removeBook(id)
+    render()
 }
 
 
