@@ -74,9 +74,12 @@ function filterBooks(el){
     render()
 }
 
-function onClearClick(){
+function onClearClick(event){
+    event.preventDefault()
     const elFilter = document.querySelector('.filter')
     elFilter.value = ''
+    setFilterBy('')
+    render()
 }
 
 
