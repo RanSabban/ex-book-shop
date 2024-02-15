@@ -1,0 +1,30 @@
+body{
+    display: grid;
+    text-align: center;
+    background-color: whitesmoke;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1{
+    color: rgb(23, 23, 23);
+    opacity: 0.9;
+}
+
+/* table{
+    margin-inline-start: 50%;    
+    margin-inline-end: 50%;    
+} */
+/* 
+th{
+    width: 20px;
+} */
+
+table,th,td {
+    border-width: 10px;
+    border-color: black;
+}
+
+.table-container{
+    padding: 10px;
+}
