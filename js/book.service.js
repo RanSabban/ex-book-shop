@@ -1,31 +1,70 @@
-'use strict';
+"use strict";
 
-var gBooks = getBooks()
+const BOOKS_DB = 'booksDB'
+var gFilterBy = 'all'
 
-function getBooks(){
-    return  [
-        {id: makeId(),name: 'The adventures of Lori Ipsi' , price: 120, img: 'img/tintin.jpeg'},
-        {id: makeId(),name: 'World Atlas' , price: 300, img: 'img/world-atlas.jpg'},
-        {id: makeId(),name: 'Zobra the Greek' , price: 87, img: 'zobra-the-greek.jpg'}
-    ]
+var gBooks = createBooks()
+
+function getBooks() {
+    if(gFilterBy === 'all') return gBooks
+    return gBooks.filter(book => book.name.toLowerCase().includes(gFilterBy))
+    
 }
 
-function removeBook(id){
-    const index = gBooks.findIndex(book => book.id === id)
-    gBooks.splice(index,1)
+function createBooks(){
+    var books = loadFromStorage(BOOKS_DB)
+    if (!books){
+        return [
+            {
+              id: makeId(),
+              name: "The adventures of Lori Ipsi",
+              price: 120,
+              img: "img/tintin.jpeg",
+            },
+            {
+              id: makeId(),
+              name: "World Atlas",
+              price: 300,
+              img: "img/world-atlas.jpg",
+            },
+            {
+              id: makeId(),
+              name: "Zobra the Greek",
+              price: 87,
+              img: "img/zobra-the-greek.jpg",
+            },
+          ]
+    } 
+    return books 
 }
 
-function updateBook(id){
-    const index = gBooks.findIndex(book => book.id === id)
-    const formerPrice = gBooks[index].price
-    gBooks[index].price = prompt('Please enter new price',formerPrice)
+function removeBook(id) {
+  const index = gBooks.findIndex((book) => book.id === id)
+  gBooks.splice(index, 1)
+  _saveBooks()
 }
 
-function addBook(bookTitle,bookPrice){
-    gBooks.unshift({
-        id: makeId(),
-        name: bookTitle,
-        price: bookPrice
-    })
+function updateBook(id) {
+    // delete the prompt from service
+  const index = gBooks.findIndex((book) => book.id === id)
+  console.log(index , gBooks)
+  gBooks[index].price = prompt("Please enter new price", gBooks[index].price)
+  _saveBooks()
 }
 
+function addBook(bookTitle, bookPrice) {
+  gBooks.unshift({
+    id: makeId(),
+    name: bookTitle,
+    price: bookPrice
+  })
+  _saveBooks()
+}
+
+function _saveBooks(){
+    saveToStorage(BOOKS_DB,gBooks)
+}
+
+function setFilterBy(filterBy){
+    gFilterBy = filterBy.toLowerCase()
+}

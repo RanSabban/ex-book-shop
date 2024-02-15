@@ -11,7 +11,8 @@ function render(){
         <th>Price</th>
         <th>Actions</th>
     </tr>`
-    var tableHTML = gBooks.map(book => 
+    var books = getBooks()
+    var tableHTML = books.map(book => 
         `
         <tr>
             <td>${book.name}</td>
@@ -29,40 +30,53 @@ function render(){
     tableEl.innerHTML = strHTML
 }
 
-function onRemoveBook(id){
+function onRemoveBook(bookId){
     // console.log('id',id)
-    removeBook(id)
+    removeBook(bookId)
     render()
 }
 
-function onUpdateBook(id){
+function onUpdateBook(bookId){
     // console.log('id',id);
-    updateBook(id)
+    updateBook(bookId)
     render()
 }
 
 function onAddBook(){
     const bookTitle = prompt("Please enter the book title")
-    const bookPrice = prompt("Please enter the book price")
+    const bookPrice = +prompt("Please enter the book price")
     addBook(bookTitle,bookPrice)
     render()
 }
 
 function onReadBook(id){
-    const dialog = document.querySelector('dialog')
-    const textEl = document.querySelector('.book-info')
+    // fix elDialog + imgqueryselector
+    const elDialog = document.querySelector('dialog')
+    const elText = elDialog.querySelector('.book-info')
+    //don't touch gBooks!!!
     const index = gBooks.findIndex(book => book.id === id)
-    textEl.innerText = `
+    elText.innerText = `
     Book ID: ${gBooks[index].id}
     Book Title: ${gBooks[index].name}
     Book Price: ${gBooks[index].price}`
     const bookImgEl = document.querySelector('.book-img').src = gBooks[index].img
-    dialog.showModal()
+    elDialog.showModal()
 }
 
 function closeModal(){
     const dialog = document.querySelector('dialog')
     dialog.close()
+}
+
+function filterBooks(el){
+    const value = el.value
+    setFilterBy(value)
+    render()
+}
+
+function onClearClick(){
+    const elFilter = document.querySelector('.filter')
+    elFilter.value = ''
 }
 
 

@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/style.css" />
     <title>Book shop</title>
 </head>
+
 <body onload="oninit()">
     <h1>Welcome to the best book shop!</h1>
+
     <section>
+
+        <form class = "filter-books">
+            <input class = "filter" oninput="filterBooks(this)"  type = "text" placeholder="Filter Books"/>
+            <button onclick="onClearClick()">Clear</button>
+        </form>
+
         <button class="add-book" onclick="onAddBook()">Add Book</button>
     </section>
+
     <section class="table-container">
-    <table>
-    </table>
-    <dialog class ="book-details">
-        <pre class = "book-info"></pre>
-        <img class="book-img">
-        <button class = "close-btn" onclick = "closeModal()" autofocus>Close</button>
-    </dialog>
+        <table>
+            <!-- To read in mdn about thead -->
+        </table>
     </section>
+
+    <dialog class="book-details">
+        <pre class="book-info"></pre>
+        <img class="book-img">
+        <button class="close-btn" onclick="closeModal()" autofocus>Close</button>
+    </dialog>
+
+    <!-- Add services folder -->
+    <script src="js/storage.service.js"></script>
     <script src="js/util.service.js"></script>
     <script src="js/book.service.js"></script>
     <script src="js/book.controller.js"></script>
 </body>
+
 </html>
