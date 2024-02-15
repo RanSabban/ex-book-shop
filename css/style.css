@@ -28,3 +28,17 @@ table,th,td {
 .table-container{
     padding: 10px;
 }
+
+::backdrop{
+    background-color: beige;
+    opacity: 0.75;
+}
+
+.book-img{
+    width: 200px;
+}
+
+
+.close-btn{
+    display: block;
+}

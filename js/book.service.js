@@ -4,9 +4,9 @@ var gBooks = getBooks()
 
 function getBooks(){
     return  [
-        {id: makeId(),name: 'The adventures of Lori Ipsi' , price: 120},
-        {id: makeId(),name: 'World Atlas' , price: 300},
-        {id: makeId(),name: 'Zobra the Greek' , price: 87}
+        {id: makeId(),name: 'The adventures of Lori Ipsi' , price: 120, img: 'img/tintin.jpeg'},
+        {id: makeId(),name: 'World Atlas' , price: 300, img: 'img/world-atlas.jpg'},
+        {id: makeId(),name: 'Zobra the Greek' , price: 87, img: 'zobra-the-greek.jpg'}
     ]
 }
 
