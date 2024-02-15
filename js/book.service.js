@@ -20,3 +20,12 @@ function updateBook(id){
     const formerPrice = gBooks[index].price
     gBooks[index].price = prompt('Please enter new price',formerPrice)
 }
+
+function addBook(bookTitle,bookPrice){
+    gBooks.unshift({
+        id: makeId(),
+        name: bookTitle,
+        price: bookPrice
+    })
+}
+
