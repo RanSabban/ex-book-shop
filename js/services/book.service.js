@@ -2,8 +2,12 @@
 
 const BOOKS_DB = 'booksDB'
 var gFilterBy = 'all'
-
 var gBooks = createBooks()
+var gStatistics = {
+  expensive: 0,
+  average:0,
+  cheap:0
+}
 
 function getBooks() {
     if(gFilterBy === 'all' || gFilterBy === '') return gBooks
@@ -42,12 +46,14 @@ function removeBook(id) {
   const index = gBooks.findIndex((book) => book.id === id)
   gBooks.splice(index, 1)
   _saveBooks()
+  updateStatistics()
 }
 
 function updateBook(bookId,newPrice) {
   const index = getBookIndex(bookId)
   gBooks[index].price = newPrice
   _saveBooks()
+  updateStatistics()
 }
 
 function addBook(bookTitle, bookPrice) {
@@ -58,6 +64,7 @@ function addBook(bookTitle, bookPrice) {
     img: 'img/general-book.png'
   })
   _saveBooks()
+  updateStatistics()
 }
 
 function _saveBooks(){
@@ -74,4 +81,18 @@ function getBookIndex(bookId){
 
 function getBookByIndex(bookId){
    return gBooks.find(book => book.id === bookId )
+}
+
+function updateStatistics(){
+  for(var counter in gStatistics){
+    gStatistics[counter] = 0
+  }
+  gBooks.forEach(book => {
+    book.price > 200 ? gStatistics.expensive++ :
+    book.price >= 80 ? gStatistics.average++ : gStatistics.cheap++
+  })
+}
+
+function getStatistics(){
+  return gStatistics
 }

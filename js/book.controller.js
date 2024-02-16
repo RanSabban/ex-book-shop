@@ -2,6 +2,8 @@
 
 function oninit(){
     render()
+    updateStatistics()
+    renderStatistics()
 }
 
 function render(){
@@ -35,6 +37,7 @@ function onRemoveBook(bookId){
     removeBook(bookId)
     render()
     showSuccess()
+    renderStatistics()
 }
 
 function onUpdateBook(bookId){
@@ -46,6 +49,7 @@ function onUpdateBook(bookId){
     updateBook(bookId,newPrice)
     render()
     showSuccess()
+    renderStatistics()
 }
 
 function onAddBook(){
@@ -58,6 +62,7 @@ function onAddBook(){
     addBook(bookTitle,bookPrice)
     render()
     showSuccess()
+    renderStatistics()
 }
 
 function onReadBook(bookId){
@@ -97,6 +102,14 @@ function showSuccess(){
     setTimeout(() => {
         elModal.style.display = 'none'
     },2000)
+}
+
+
+function renderStatistics(){
+    const statistics = getStatistics()
+    const statisticsEl = document.querySelector(".statistics")
+    const strHTML = `Book Statistics: Expensive: ${statistics.expensive} average: ${statistics.average} cheap: ${statistics.cheap}`
+    statisticsEl.innerText = strHTML
 }
 
 

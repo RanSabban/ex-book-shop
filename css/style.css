@@ -57,3 +57,14 @@ td {
     color: whitesmoke;
     opacity: 0.6;
 }
+
+footer{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    background-color: grey;
+    opacity: 0.8;
+    width: 100%;
+    justify-content: space-around
+}
+
