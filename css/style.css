@@ -94,3 +94,21 @@ footer{
     justify-content: space-around
 }
 
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.grid-item{
+    display: block;
+    width: 30vw;
+    min-width: fit-content;
+    justify-self: center;
+    align-self: start;
+    text-align: center;
+    border-width: 3px;
+    border-style: solid;
+}
+

@@ -1,5 +1,7 @@
 'use strict';
 
+var gIsGrid = false
+
 function oninit(){
     render()
     updateStatistics()
@@ -7,12 +9,12 @@ function oninit(){
 }
 
 function render(){
-    var strHTML = `<table>
-    <tr>
-        <th>Title</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>`
+    if (!gIsGrid){
+    const elGrid = document.querySelector('.grid-container')
+    elGrid.style.display = 'none'
+    const tableEl = document.querySelector('table')
+    tableEl.style.display = 'block'
+    var strHTML = ''
     var books = getBooks()
     books.length === 0 ? showNoResult() : hideNoResult()
     var tableHTML = books.map(book => 
@@ -28,9 +30,33 @@ function render(){
         </tr>
         `
     )
-    strHTML+= tableHTML.join('') + '</table>'
-    const tableEl = document.querySelector('table')
-    tableEl.innerHTML = strHTML
+    strHTML+= tableHTML.join('')
+    const inTableEl = document.querySelector('table tbody')
+    inTableEl.innerHTML = strHTML
+    } else {
+        const tableEl = document.querySelector('table')
+        tableEl.style.display = 'none'
+        var strHTML = ''
+        var books = getBooks()
+        books.length === 0 ? showNoResult() : hideNoResult()
+        var gridHTML = books.map(book => 
+            `
+            <section class = "grid-item"> 
+            <p>
+            Name: ${book.name} </br>
+            Price: ${book.price} </br>
+            <button class = "read" onclick="onReadBook('${book.id}')">Read</button>
+            <button class = "update" onclick="onUpdateBook('${book.id}')">Update</button>
+            <button class = "delete" onclick="onRemoveBook('${book.id}')">Delete</button>
+            </p>
+            </section>
+            `
+        )
+        strHTML += gridHTML.join('')
+        const elGrid = document.querySelector('.grid-container')
+        elGrid.innerHTML = strHTML
+        elGrid.style.display = 'grid'
+    }
 }
 
 function onRemoveBook(bookId){
@@ -121,6 +147,11 @@ function showNoResult(){
 function hideNoResult(){
     const elText = document.querySelector(".no-result-found")
     elText.innerHTML = ''
+}
+
+function toggleDisplay(){
+    gIsGrid = !gIsGrid
+    render()
 }
 
 

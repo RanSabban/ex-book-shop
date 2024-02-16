@@ -20,13 +20,26 @@
 
         <button class="add-book" onclick="onAddBook()">Add Book</button>
     </section>
+    <section display-selector-continaer>
+        <button onclick = "toggleDisplay()" class = 'display-selector'>Grid/Table</button>
+    </section>
 
     <section class="table-container">
         <table>
-            <!-- To read in mdn about thead -->
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
         </table>
         <h1 class ='no-result-found'></h1>
     </section>
+
+    <section class = "grid-container"></section>
 
     <dialog class="book-details">
         <pre class="book-info"></pre>
