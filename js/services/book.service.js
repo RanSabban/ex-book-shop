@@ -44,11 +44,9 @@ function removeBook(id) {
   _saveBooks()
 }
 
-function updateBook(id) {
-    // delete the prompt from service
-  const index = gBooks.findIndex((book) => book.id === id)
-  console.log(index , gBooks)
-  gBooks[index].price = prompt("Please enter new price", gBooks[index].price)
+function updateBook(bookId,newPrice) {
+  const index = getBookIndex(bookId)
+  gBooks[index].price = newPrice
   _saveBooks()
 }
 

@@ -34,19 +34,30 @@ function onRemoveBook(bookId){
     // console.log('id',id)
     removeBook(bookId)
     render()
+    showSuccess()
 }
 
 function onUpdateBook(bookId){
-    // console.log('id',id);
-    updateBook(bookId)
+    const newPrice = +prompt("Please enter new price")
+    if (!newPrice){
+        alert(`Can't get blank details.`)
+        return
+    }
+    updateBook(bookId,newPrice)
     render()
+    showSuccess()
 }
 
 function onAddBook(){
     const bookTitle = prompt("Please enter the book title")
     const bookPrice = +prompt("Please enter the book price")
+    if (!bookTitle||!bookPrice) {
+        alert(`Can't get blank details.`)
+        return
+    }
     addBook(bookTitle,bookPrice)
     render()
+    showSuccess()
 }
 
 function onReadBook(bookId){
@@ -61,7 +72,7 @@ function onReadBook(bookId){
     elDialog.showModal()
 }
 
-function closeModal(){
+function closeBookInfo(){
     const dialog = document.querySelector('dialog')
     dialog.close()
 }
@@ -78,6 +89,14 @@ function onClearClick(event){
     elFilter.value = ''
     setFilterBy('')
     render()
+}
+
+function showSuccess(){
+    const elModal = document.querySelector(".modal-feedback")
+    elModal.style.display = 'block'
+    setTimeout(() => {
+        elModal.style.display = 'none'
+    },2000)
 }
 
 

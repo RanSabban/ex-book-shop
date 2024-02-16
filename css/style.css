@@ -1,4 +1,4 @@
-body{
+body {
     display: grid;
     text-align: center;
     background-color: whitesmoke;
@@ -6,7 +6,7 @@ body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-h1{
+h1 {
     color: rgb(23, 23, 23);
     opacity: 0.9;
 }
@@ -20,25 +20,40 @@ th{
     width: 20px;
 } */
 
-table,th,td {
+table,
+th,
+td {
     border-width: 10px;
     border-color: black;
 }
 
-.table-container{
+.table-container {
     padding: 10px;
 }
 
-::backdrop{
+::backdrop {
     background-color: beige;
-    opacity: 0.75;
+    opacity: 0.5;
 }
 
-.book-img{
+.book-img {
     width: 200px;
 }
 
 
-.close-btn{
+.close-btn {
     display: block;
+}
+
+.modal-feedback {
+    display: none; 
+    position: fixed;
+    left: 2%;
+    top: 2%;
+    width: 100px;
+    height: 50px;
+    border-radius: 10%;
+    background-color: rgba(15, 107, 1,0.8);
+    color: whitesmoke;
+    opacity: 0.6;
 }
