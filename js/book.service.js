@@ -56,7 +56,8 @@ function addBook(bookTitle, bookPrice) {
   gBooks.unshift({
     id: makeId(),
     name: bookTitle,
-    price: bookPrice
+    price: bookPrice,
+    img: 'img/general-book.png'
   })
   _saveBooks()
 }
