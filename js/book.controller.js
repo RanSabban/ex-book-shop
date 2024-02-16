@@ -14,15 +14,16 @@ function render(){
         <th>Actions</th>
     </tr>`
     var books = getBooks()
+    books.length === 0 ? showNoResult() : hideNoResult()
     var tableHTML = books.map(book => 
         `
         <tr>
             <td>${book.name}</td>
             <td>${book.price}</td>
             <td>
-            <button onclick="onReadBook('${book.id}')">Read</button>
-            <button onclick="onUpdateBook('${book.id}')">Update</button>
-            <button onclick="onRemoveBook('${book.id}')">Delete</button>
+            <button class = "read" onclick="onReadBook('${book.id}')">Read</button>
+            <button class = "update" onclick="onUpdateBook('${book.id}')">Update</button>
+            <button class = "delete" onclick="onRemoveBook('${book.id}')">Delete</button>
             </td>
         </tr>
         `
@@ -112,5 +113,14 @@ function renderStatistics(){
     statisticsEl.innerText = strHTML
 }
 
+function showNoResult(){
+    const elText = document.querySelector(".no-result-found")
+    elText.innerHTML = `<h1>No matching books were found...</h1>`
+}
+
+function hideNoResult(){
+    const elText = document.querySelector(".no-result-found")
+    elText.innerHTML = ''
+}
 
 
