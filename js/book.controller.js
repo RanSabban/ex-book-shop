@@ -49,17 +49,15 @@ function onAddBook(){
     render()
 }
 
-function onReadBook(id){
-    // fix elDialog + imgqueryselector
-    const elDialog = document.querySelector('dialog')
+function onReadBook(bookId){
+    const elDialog = document.querySelector('.book-details')
     const elText = elDialog.querySelector('.book-info')
-    //don't touch gBooks!!!
-    const index = gBooks.findIndex(book => book.id === id)
+    const book = getBookByIndex(bookId)
     elText.innerText = `
-    Book ID: ${gBooks[index].id}
-    Book Title: ${gBooks[index].name}
-    Book Price: ${gBooks[index].price}`
-    const bookImgEl = document.querySelector('.book-img').src = gBooks[index].img
+    Book ID: ${book.id}
+    Book Title: ${book.name}
+    Book Price: ${book.price}`
+    const bookImgEl = elDialog.querySelector('.book-img').src = book.img
     elDialog.showModal()
 }
 

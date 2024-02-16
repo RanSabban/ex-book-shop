@@ -69,3 +69,11 @@ function _saveBooks(){
 function setFilterBy(filterBy){
     gFilterBy = filterBy.toLowerCase()
 }
+
+function getBookIndex(bookId){
+  return gBooks.findIndex(book => book.id === bookId)
+}
+
+function getBookByIndex(bookId){
+   return gBooks.find(book => book.id === bookId )
+}
