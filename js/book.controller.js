@@ -22,6 +22,7 @@ function render(){
         <tr>
             <td>${book.name}</td>
             <td>${book.price}</td>
+            <td>${book.rating}</td>
             <td>
             <button class = "read" onclick="onReadBook('${book.id}')">Read</button>
             <button class = "update" onclick="onUpdateBook('${book.id}')">Update</button>
@@ -45,6 +46,7 @@ function render(){
             <p>
             Name: ${book.name} </br>
             Price: ${book.price} </br>
+            Rating: ${book.rating} </br>
             <button class = "read" onclick="onReadBook('${book.id}')">Read</button>
             <button class = "update" onclick="onUpdateBook('${book.id}')">Update</button>
             <button class = "delete" onclick="onRemoveBook('${book.id}')">Delete</button>

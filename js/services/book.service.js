@@ -23,18 +23,21 @@ function createBooks(){
               name: "The adventures of Lori Ipsi",
               price: 120,
               img: "img/tintin.jpeg",
+              rating: getRandomIntInclusive(1,5)
             },
             {
               id: makeId(),
               name: "World Atlas",
               price: 300,
               img: "img/world-atlas.jpg",
+              rating: getRandomIntInclusive(1,5)
             },
             {
               id: makeId(),
               name: "Zobra the Greek",
               price: 87,
               img: "img/zobra-the-greek.jpg",
+              rating: getRandomIntInclusive(1,5)
             },
           ]
     } 
