@@ -97,15 +97,21 @@ function onSaveCar(){
     const elForm = document.querySelector('.book-edit-modal form')
     const elBookName = elForm.querySelector('.book-add-name')
     const elBookPrice = elForm.querySelector('.book-add-price')
+    const elBookRating = elForm.querySelector('.book-add-rating')
 
     const bookName = elBookName.value
     const bookPrice = elBookPrice.value
+    const bookRating = elBookRating.value
 
     if (!bookName || !bookPrice){
         alert(`Can't get blank details.`)
         return
     }
-    addBook(bookName,bookPrice)
+    if (bookRating < 1 || bookRating > 5){
+        alert(`Numbers between 1 to 5 only`)
+        return
+    }
+    addBook(bookName,bookPrice,bookRating)
     render()
     showSuccess('Book added')
     renderStatistics()
@@ -175,20 +181,6 @@ function toggleDisplay(){
     render()
 }
 
-function showAddBookModal(txt){
-    const elModal = document.querySelector('.add-book')
-    elModal.display = 'block'
-    elModal.innerText = txt
-}
 
-function hideAddBookModal(){
-    const elModal = document.querySelector('.add-book')
-    elModal.display = 'none'
-}
-
-function onSubmitAddBook(){
-    const input = document.querySelector('.add-book-details')
-    return input.value
-}
 
 

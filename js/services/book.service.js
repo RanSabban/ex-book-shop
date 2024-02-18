@@ -58,12 +58,13 @@ function updateBook(bookId,newPrice) {
   updateStatistics()
 }
 
-function addBook(bookTitle, bookPrice) {
+function addBook(bookTitle, bookPrice,bookRating) {
   gBooks.unshift({
     id: makeId(),
     name: bookTitle,
     price: bookPrice,
-    img: 'img/general-book.png'
+    img: 'img/general-book.png',
+    rating: bookRating 
   })
   _saveBooks()
   updateStatistics()
