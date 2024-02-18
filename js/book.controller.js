@@ -118,13 +118,14 @@ function onReadBook(bookId){
     elText.innerText = `
     Book ID: ${book.id}
     Book Title: ${book.name}
-    Book Price: ${book.price}`
+    Book Price: ${book.price}
+    Book Rating: ${book.rating}`
     const bookImgEl = elDialog.querySelector('.book-img').src = book.img
     elDialog.showModal()
 }
 
 function closeBookInfo(){
-    const dialog = document.querySelector('dialog')
+    const dialog = document.querySelector('.book-details')
     dialog.close()
 }
 
