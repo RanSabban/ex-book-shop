@@ -18,7 +18,7 @@
             <button onclick="onClearClick(event)">Clear</button>
         </form>
 
-        <button class="add-book" onclick="onAddBook()">Add Book</button>
+        <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
     </section>
     <section display-selector-continaer>
         <button onclick = "toggleDisplay()" class = 'display-selector'>Grid/Table</button>
@@ -41,6 +41,18 @@
 
     <section class = "grid-container"></section>
 
+    <dialog class = "book-edit-modal" onclose = "onCloseCarEdit()">
+        <form onsubmit="onSaveCar()" method="dialog">
+            <h2>Add Book</h2>
+            <input class = "book-add-name" type="text" placeholder="Enter book name">
+            <input class = "book-add-price" type="number" placeholder="add book price">
+            <div class = "actions">
+                <button type="button" onclick="onCloseCarEdit()">Cancel</button>
+                <button>Save</button>
+            </div>
+        </form>
+    </dialog>
+    
     <dialog class="book-details">
         <pre class="book-info"></pre>
         <img class="book-img">
@@ -48,7 +60,7 @@
     </dialog>
 
     <section class="modal-feedback">
-        <p class="modal-feedback-details">Success!</p>
+        <p class="modal-feedback-details"></p>
     </section>
 
     <footer>

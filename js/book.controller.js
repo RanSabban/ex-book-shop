@@ -63,7 +63,7 @@ function onRemoveBook(bookId){
     // console.log('id',id)
     removeBook(bookId)
     render()
-    showSuccess()
+    showSuccess('Book removed')
     renderStatistics()
 }
 
@@ -75,20 +75,37 @@ function onUpdateBook(bookId){
     }
     updateBook(bookId,newPrice)
     render()
-    showSuccess()
+    showSuccess('Book updated')
     renderStatistics()
 }
 
 function onAddBook(){
-    const bookTitle = prompt("Please enter the book title")
-    const bookPrice = +prompt("Please enter the book price")
-    if (!bookTitle||!bookPrice) {
+    const elModal = document.querySelector('.book-edit-modal')
+    const elHeading = elModal.querySelector('h2')
+    elHeading.innerText = 'Add Book'
+    elModal.showModal()
+}
+
+function onCloseCarEdit(){
+    const elModal = document.querySelector('.book-edit-modal')
+    elModal.close()
+}
+
+function onSaveCar(){
+    const elForm = document.querySelector('.book-edit-modal form')
+    const elBookName = elForm.querySelector('.book-add-name')
+    const elBookPrice = elForm.querySelector('.book-add-price')
+
+    const bookName = elBookName.value
+    const bookPrice = elBookPrice.value
+
+    if (!bookName || !bookPrice){
         alert(`Can't get blank details.`)
         return
     }
-    addBook(bookTitle,bookPrice)
+    addBook(bookName,bookPrice)
     render()
-    showSuccess()
+    showSuccess('Book added')
     renderStatistics()
 }
 
@@ -123,9 +140,10 @@ function onClearClick(event){
     render()
 }
 
-function showSuccess(){
+function showSuccess(txt){
     const elModal = document.querySelector(".modal-feedback")
     elModal.style.display = 'block'
+    elModal.innerText = txt
     setTimeout(() => {
         elModal.style.display = 'none'
     },2000)
@@ -152,6 +170,22 @@ function hideNoResult(){
 function toggleDisplay(){
     gIsGrid = !gIsGrid
     render()
+}
+
+function showAddBookModal(txt){
+    const elModal = document.querySelector('.add-book')
+    elModal.display = 'block'
+    elModal.innerText = txt
+}
+
+function hideAddBookModal(){
+    const elModal = document.querySelector('.add-book')
+    elModal.display = 'none'
+}
+
+function onSubmitAddBook(){
+    const input = document.querySelector('.add-book-details')
+    return input.value
 }
 
 

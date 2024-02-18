@@ -112,3 +112,11 @@ footer{
     border-style: solid;
 }
 
+.add-book{
+    display: block;
+    background-color: green;
+    width: 30vw;
+    height: 10vh;
+    justify-self: center;
+}
+
