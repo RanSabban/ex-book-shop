@@ -11,8 +11,14 @@ h1 {
     opacity: 0.9;
 }
 
+button{
+    cursor: pointer;
+}
+
 button:hover{
-    font-weight: bold;
+    /* font-weight: bold; */
+    background-color: rgb(105, 0, 147,0.8);
+    transition: 0.5s;
 }
 
 table,
@@ -24,10 +30,101 @@ td {
 
 th{
     width: 300px;
+    background-color: #91e4fb;
+
 }
 
+td{
+    background-color: rgba(215, 215, 215, 0.5);
+}
+
+.search-icon{
+    width: 20px;
+}
+
+.buttons{
+    display: grid;
+    justify-self:center;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 30px);
+    /* height: 10vh; */
+}
+
+.search-box{
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: start;
+}
+
+
+
+.add-book-btn{
+    grid-row: 1;
+    grid-column: 2;
+    width: 10vw;
+    justify-self: center;
+    background: rgb(14, 159, 255,0.8);
+    color: rgb(255, 255, 255,0.8);
+}
+
+.next-page{
+    grid-row: 3;
+    grid-column: 3;
+    width: 15vw;
+    justify-self: end;
+    align-self: end;
+    background: rgb(14, 159, 255,0.8);
+    color: rgb(255, 255, 255,0.8);
+}
+
+
+.prev-page{
+    grid-row: 3;
+    grid-column: 1;
+    width: 15vw;
+    justify-self: start;
+    align-self: end;
+    background: rgb(14, 159, 255,0.8);
+    color: rgb(255, 255, 255,0.8);
+}
+
+form{
+    grid-template-columns: 1fr repeat(2,1fr);
+    display: grid;
+    grid-row: 1;
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-self: center;
+}
+
+.clear-btn{
+    grid-row: 1;
+    grid-column: 1;
+    width: 7vw;
+    justify-self: end;
+    background: rgb(14, 159, 255,0.8);
+    color: rgb(255, 255, 255,0.8);
+}
+
+.min-rating{
+    grid-row: 2;
+    grid-column: 1;
+    /* width: 10vw; */
+    justify-self: start;
+    margin-inline-start: 5px;
+}
+
+
+.filter{
+    background: #404040;
+    color: white;
+    font-weight: bold;
+}
+
+
 .read{
-    background-color: rgb(69, 134, 239);
+    background-color: rgb(69, 134, 239, 0.8);
     padding-inline: 10px;
     border-radius: 10%;
     border-style: solid;
@@ -36,7 +133,7 @@ th{
 }
 
 .delete{
-    background-color: rgb(246, 169, 14);
+    background-color: rgb(246, 169, 14, 0.8);
     padding-inline: 10px;
     border-radius: 10%;
     border-style: solid;
@@ -45,7 +142,7 @@ th{
 }
 
 .update{
-    background-color: rgb(246, 238, 14);
+    background-color: rgb(246, 238, 14, 0.8);
     padding-inline: 10px;
     border-radius: 10%;
     border-style: solid;
@@ -58,7 +155,7 @@ th{
 }
 
 ::backdrop {
-    background-color: beige;
+    background-color: rgb(62, 223, 237, 0.5);
     opacity: 0.5;
 }
 
@@ -119,4 +216,33 @@ footer{
     height: 10vh;
     justify-self: center;
 }
+
+.book-add-rating{
+    width: 25px;
+    padding: 5px;
+    text-align: center;
+    border-width: 2px;
+    border-color: rgb(0, 208, 255);
+    border-style: solid;
+    border-radius: 20%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.plus-btn, .minus-btn{
+    border-style: solid;
+    background-color: white;
+    border-color: rgb(0, 208, 255);
+    border-radius: 20%;
+}
+
+.sort-by-rating, .sort-by-price, .sort-by-name{
+    cursor: pointer;
+    background-color: #feaa3c;
+}
+
 

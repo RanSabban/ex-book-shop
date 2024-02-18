@@ -14,8 +14,11 @@ function getBooks(options) {
     books.sort((book1,book2) => (book1.name.localeCompare(book2.name)) * options.sortBy.name)
   }
   if (options.sortBy.rating){
-    console.log('here');
     books.sort((book1,book2) => (book1.rating - book2.rating) * options.sortBy.rating)
+  }
+  if (options.sortBy.price){
+    console.log('here');
+    books.sort((book1,book2) => (book1.price - book2.price) * options.sortBy.price)
   }
   const startIdx = options.page.idx * options.page.size
   return books.slice(startIdx, startIdx + options.page.size)

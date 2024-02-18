@@ -13,6 +13,10 @@ function oninit(){
     renderStatistics()
 }
 
+var gIsDescendingRating = false
+var gIsDescendingName = false
+var gIsDescendingPrice = false
+
 function render(){
     if (!gIsGrid){
     const elGrid = document.querySelector('.grid-container')
@@ -27,7 +31,7 @@ function render(){
         <tr>
             <td>${book.name}</td>
             <td>${book.price}</td>
-            <td>${book.rating}</td>
+            <td>${convertToStars(book.rating)}</td>
             <td>
             <button class = "read" onclick="onReadBook('${book.id}')">Read</button>
             <button class = "update" onclick="onUpdateBook('${book.id}')">Update</button>
@@ -52,7 +56,7 @@ function render(){
             <p>
             Name: ${book.name} </br>
             Price: ${book.price} </br>
-            Rating: ${book.rating} </br>
+            Rating: ${convertToStars(book.rating)} </br>
             <button class = "read" onclick="onReadBook('${book.id}')">Read</button>
             <button class = "update" onclick="onUpdateBook('${book.id}')">Update</button>
             <button class = "delete" onclick="onRemoveBook('${book.id}')">Delete</button>
@@ -66,6 +70,14 @@ function render(){
         elGrid.style.display = 'grid'
         setQueryParams()
     }
+}
+
+function convertToStars(counter){
+    var strStars = ''
+    for(var i = 0;i < counter; i++){
+        strStars += '⭐️'
+    }
+    return strStars
 }
 
 function onRemoveBook(bookId){
@@ -133,6 +145,14 @@ function onSaveCar(){
     resetBookEdit()
 }
 
+function plusBtnRating(elBtn){
+    document.querySelector('.book-add-rating').value++
+}
+
+function minusBtnRating(elBtn){
+    document.querySelector('.book-add-rating').value--
+}
+
 function resetBookEdit(){
     const elForm = document.querySelector('.book-edit-modal form')
     const elBookName = elForm.querySelector('.book-add-name')
@@ -142,6 +162,8 @@ function resetBookEdit(){
     elBookPrice.value = 0
     elBookName.value = ''
 }
+
+
 
 function onReadBook(bookId){
     const elDialog = document.querySelector('.book-details')
@@ -179,19 +201,27 @@ function minRating(el){
 
 // sort by 
 
-function onSetSortBy(){
-    const elSortBy = document.querySelector('.sort-by select')
-    const elDir = document.querySelector('.sort-desc')
-    const dir = elDir.checked ? -1 : 1 
+function onSetSortBy(strAction){
+    // const elSortBy = document.querySelector('.sort-by select')
+    // const elDir = document.querySelector('.sort-desc')
     gQueryOptions.sortBy = {}
-    if (elSortBy.value === 'Name'){
-        gQueryOptions.sortBy = {name: dir}
+    if (strAction === 'Name'){
+        gIsDescendingName = !gIsDescendingName
+        gQueryOptions.sortBy = {rating: gIsDescendingName ? 1 : -1}
     }
-    if (elSortBy.value === 'Rating'){
-        gQueryOptions.sortBy = {rating: dir}
+    if (strAction === 'Rating'){
+        gIsDescendingRating = !gIsDescendingRating
+        gQueryOptions.sortBy = {rating: gIsDescendingRating ? 1 : -1}
     }
+    if (strAction === 'Price'){
+        gIsDescendingPrice = !gIsDescendingPrice
+        gQueryOptions.sortBy = {rating: gIsDescendingPrice ? 1 : -1}
+    }
+  
     render()
 }
+// gQueryOptions.sortBy = {name: dir}
+
 
 // pages
 
