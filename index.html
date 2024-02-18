@@ -12,14 +12,31 @@
     <h1>Welcome to the book shop!</h1>
 
     <section>
-
         <form class = "filter-books">
             <input class = "filter" oninput="filterBooks(this)"  type = "text" placeholder="Filter Books"/>
+            <select class = "minimum-rating" onchange = "minRating(this)">
+                <option value ="">Select Min Rating</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
             <button onclick="onClearClick(event)">Clear</button>
         </form>
-
         <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
     </section>
+
+    <section class = "sort-by">
+        <select onchange="onSetSortBy()">
+        <option value = "">Select Sorting</option>
+        <option value = "Name">Name</option>
+        <option value = "Rating">Rating</option>
+        </select>
+        <span>Descending</span>
+        <input class = "sort-desc" type="checkbox" oninput="onSetSortBy()">
+    </section>
+
     <section display-selector-continaer>
         <button onclick = "toggleDisplay()" class = 'display-selector'>Grid/Table</button>
     </section>

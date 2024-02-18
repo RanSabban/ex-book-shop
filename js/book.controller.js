@@ -1,8 +1,12 @@
 'use strict';
-
+const gQueryOptions = {
+    filterBy: {txt: '', minRating: 0},
+    sortBy: {}, 
+}
 var gIsGrid = false
-
+var gBookToEdit = null
 function oninit(){
+    readQueryParams()
     render()
     updateStatistics()
     renderStatistics()
@@ -15,7 +19,7 @@ function render(){
     const tableEl = document.querySelector('table')
     tableEl.style.display = 'block'
     var strHTML = ''
-    var books = getBooks()
+    var books = getBooks(gQueryOptions)
     books.length === 0 ? showNoResult() : hideNoResult()
     var tableHTML = books.map(book => 
         `
@@ -34,11 +38,12 @@ function render(){
     strHTML+= tableHTML.join('')
     const inTableEl = document.querySelector('table tbody')
     inTableEl.innerHTML = strHTML
+    setQueryParams()
     } else {
         const tableEl = document.querySelector('table')
         tableEl.style.display = 'none'
         var strHTML = ''
-        var books = getBooks()
+        var books = getBooks(gQueryOptions)
         books.length === 0 ? showNoResult() : hideNoResult()
         var gridHTML = books.map(book => 
             `
@@ -58,11 +63,11 @@ function render(){
         const elGrid = document.querySelector('.grid-container')
         elGrid.innerHTML = strHTML
         elGrid.style.display = 'grid'
+        setQueryParams()
     }
 }
 
 function onRemoveBook(bookId){
-    // console.log('id',id)
     removeBook(bookId)
     render()
     showSuccess('Book removed')
@@ -70,15 +75,19 @@ function onRemoveBook(bookId){
 }
 
 function onUpdateBook(bookId){
-    const newPrice = +prompt("Please enter new price")
-    if (!newPrice){
-        alert(`Can't get blank details.`)
-        return
-    }
-    updateBook(bookId,newPrice)
-    render()
-    showSuccess('Book updated')
-    renderStatistics()
+    const elModal = document.querySelector('.book-edit-modal')
+    const elHeading = elModal.querySelector('h2')
+    const elBookName = elModal.querySelector('.book-add-name')
+    const elBookPrice = elModal.querySelector('.book-add-price')
+    const elBookRating = elModal.querySelector('.book-add-rating')
+    
+    gBookToEdit = getBookByIndex(bookId)
+
+    elHeading.innerText = 'Edit Book'
+    elBookName.value = gBookToEdit.name
+    elBookPrice.value = gBookToEdit.price
+    elBookRating.value = gBookToEdit.rating
+    elModal.showModal()
 }
 
 function onAddBook(){
@@ -111,10 +120,26 @@ function onSaveCar(){
         alert(`Numbers between 1 to 5 only`)
         return
     }
-    addBook(bookName,bookPrice,bookRating)
+    if (gBookToEdit){
+        updateBook(gBookToEdit.id,bookName,bookPrice,bookRating)
+        gBookToEdit = null
+    } else {
+        addBook(bookName,bookPrice,bookRating)
+    }
     render()
     showSuccess('Book added')
     renderStatistics()
+    resetBookEdit()
+}
+
+function resetBookEdit(){
+    const elForm = document.querySelector('.book-edit-modal form')
+    const elBookName = elForm.querySelector('.book-add-name')
+    const elBookPrice = elForm.querySelector('.book-add-price')
+    const elBookRating = elForm.querySelector('.book-add-rating')
+    elBookRating.value = ''
+    elBookPrice.value = 0
+    elBookName.value = ''
 }
 
 function onReadBook(bookId){
@@ -135,17 +160,48 @@ function closeBookInfo(){
     dialog.close()
 }
 
+//filter by 
+
 function filterBooks(el){
     const value = el.value
-    setFilterBy(value)
+    gQueryOptions.filterBy.txt = value.toLowerCase()
+    render()
+}
+
+function minRating(el){
+    const value = el.value
+    gQueryOptions.filterBy.minRating = value
+    // console.log(value)
+    render()
+
+}
+
+// sort by 
+
+function onSetSortBy(){
+    const elSortBy = document.querySelector('.sort-by select')
+    const elDir = document.querySelector('.sort-desc')
+    const dir = elDir.checked ? -1 : 1 
+    console.log(elSortBy.value)
+    gQueryOptions.sortBy = {}
+    if (elSortBy.value === 'Name'){
+        gQueryOptions.sortBy = {name: dir}
+    }
+    if (elSortBy.value === 'Rating'){
+        gQueryOptions.sortBy = {rating: dir}
+    }
     render()
 }
 
 function onClearClick(event){
     event.preventDefault()
-    const elFilter = document.querySelector('.filter')
-    elFilter.value = ''
-    setFilterBy('')
+    const elFilter = document.querySelector('.filter-books')
+    const elFilterBooks = elFilter.querySelector('.filter')
+    elFilterBooks.value = ''
+    const elRating = elFilter.querySelector('.minimum-rating')
+    elRating.value = ''
+    gQueryOptions.filterBy.txt = ''
+    gQueryOptions.filterBy.minRating = 0
     render()
 }
 
@@ -166,6 +222,8 @@ function renderStatistics(){
     statisticsEl.innerText = strHTML
 }
 
+//no result feedback
+
 function showNoResult(){
     const elText = document.querySelector(".no-result-found")
     elText.innerHTML = `<h1>No matching books were found...</h1>`
@@ -176,11 +234,41 @@ function hideNoResult(){
     elText.innerHTML = ''
 }
 
+// toggle display
+
 function toggleDisplay(){
     gIsGrid = !gIsGrid
     render()
 }
 
+// query params
 
+function readQueryParams(){
+    const queryParams = new URLSearchParams(window.location.search)
+    gQueryOptions.filterBy = {
+        txt: queryParams.get('bookName') || '',
+        minRating: +queryParams.get('minRating') || ''
+    }
+    renderQueryParams()
+}
+
+function renderQueryParams(){
+    document.querySelector('.filter').value = gQueryOptions.filterBy.txt
+    document.querySelector('.minimum-rating').value = gQueryOptions.filterBy.minRating
+}
+
+function setQueryParams(){
+    const queryParams = new URLSearchParams()
+    queryParams.set('bookName', gQueryOptions.filterBy.txt)
+    queryParams.set('minRating', gQueryOptions.filterBy.minRating)
+    
+    const newURL = 
+        window.location.protocol + "//" +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({path: newURL} , '' , newURL)
+
+}
 
 

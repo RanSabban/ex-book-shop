@@ -1,47 +1,62 @@
 "use strict";
 
 const BOOKS_DB = 'booksDB'
-var gFilterBy = 'all'
 var gBooks = createBooks()
 var gStatistics = {
   expensive: 0,
-  average:0,
-  cheap:0
+  average: 0,
+  cheap: 0
 }
 
-function getBooks() {
-    if(gFilterBy === 'all' || gFilterBy === '') return gBooks
-    return gBooks.filter(book => book.name.toLowerCase().includes(gFilterBy))
+function getBooks(options) {
+  const books = _filterBooks(options.filterBy)
+  console.log(options)
+  if (options.sortBy.name){
+    books.sort((book1,book2) => (book1.name.localeCompare(book2.name)) * options.sortBy.name)
+  }
+  if (options.sortBy.rating){
+    console.log('here');
+    books.sort((book1,book2) => (book1.rating - book2.rating) * options.sortBy.rating)
+  }
+  return books
 }
 
-function createBooks(){
-    var books = loadFromStorage(BOOKS_DB)
-    if (!books){
-        return [
-            {
-              id: makeId(),
-              name: "The adventures of Lori Ipsi",
-              price: 120,
-              img: "img/tintin.jpeg",
-              rating: getRandomIntInclusive(1,5)
-            },
-            {
-              id: makeId(),
-              name: "World Atlas",
-              price: 300,
-              img: "img/world-atlas.jpg",
-              rating: getRandomIntInclusive(1,5)
-            },
-            {
-              id: makeId(),
-              name: "Zobra the Greek",
-              price: 87,
-              img: "img/zobra-the-greek.jpg",
-              rating: getRandomIntInclusive(1,5)
-            },
-          ]
-    } 
-    return books 
+function _filterBooks(filterBy) {
+  return gBooks.filter(book => {
+    if (book.name.toLowerCase().includes(filterBy.txt) && book.rating >= filterBy.minRating) {
+      return book
+    }
+  })
+}
+
+function createBooks() {
+  var books = loadFromStorage(BOOKS_DB)
+  if (!books) {
+    return [
+      {
+        id: makeId(),
+        name: "The adventures of Lori Ipsi",
+        price: 120,
+        img: "img/tintin.jpeg",
+        rating: getRandomIntInclusive(1, 5)
+      },
+      {
+        id: makeId(),
+        name: "World Atlas",
+        price: 300,
+        img: "img/world-atlas.jpg",
+        rating: getRandomIntInclusive(1, 5)
+      },
+      {
+        id: makeId(),
+        name: "Zobra the Greek",
+        price: 87,
+        img: "img/zobra-the-greek.jpg",
+        rating: getRandomIntInclusive(1, 5)
+      },
+    ]
+  }
+  return books
 }
 
 function removeBook(id) {
@@ -51,51 +66,49 @@ function removeBook(id) {
   updateStatistics()
 }
 
-function updateBook(bookId,newPrice) {
+function updateBook(bookId, newName, newPrice, newRating) {
   const index = getBookIndex(bookId)
   gBooks[index].price = newPrice
+  gBooks[index].name = newName
+  gBooks[index].rating = newRating
   _saveBooks()
   updateStatistics()
 }
 
-function addBook(bookTitle, bookPrice,bookRating) {
+function addBook(bookTitle, bookPrice, bookRating) {
   gBooks.unshift({
     id: makeId(),
     name: bookTitle,
     price: bookPrice,
     img: 'img/general-book.png',
-    rating: bookRating 
+    rating: bookRating
   })
   _saveBooks()
   updateStatistics()
 }
 
-function _saveBooks(){
-    saveToStorage(BOOKS_DB,gBooks)
+function _saveBooks() {
+  saveToStorage(BOOKS_DB, gBooks)
 }
 
-function setFilterBy(filterBy){
-    gFilterBy = filterBy.toLowerCase()
-}
-
-function getBookIndex(bookId){
+function getBookIndex(bookId) {
   return gBooks.findIndex(book => book.id === bookId)
 }
 
-function getBookByIndex(bookId){
-   return gBooks.find(book => book.id === bookId )
+function getBookByIndex(bookId) {
+  return gBooks.find(book => book.id === bookId)
 }
 
-function updateStatistics(){
-  for(var counter in gStatistics){
+function updateStatistics() {
+  for (var counter in gStatistics) {
     gStatistics[counter] = 0
   }
   gBooks.forEach(book => {
     book.price > 200 ? gStatistics.expensive++ :
-    book.price >= 80 ? gStatistics.average++ : gStatistics.cheap++
+      book.price >= 80 ? gStatistics.average++ : gStatistics.cheap++
   })
 }
 
-function getStatistics(){
+function getStatistics() {
   return gStatistics
 }
