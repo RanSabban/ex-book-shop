@@ -2,6 +2,7 @@
 const gQueryOptions = {
     filterBy: {txt: '', minRating: 0},
     sortBy: {}, 
+    page: {idx: 0,size: 5}
 }
 var gIsGrid = false
 var gBookToEdit = null
@@ -182,13 +183,37 @@ function onSetSortBy(){
     const elSortBy = document.querySelector('.sort-by select')
     const elDir = document.querySelector('.sort-desc')
     const dir = elDir.checked ? -1 : 1 
-    console.log(elSortBy.value)
     gQueryOptions.sortBy = {}
     if (elSortBy.value === 'Name'){
         gQueryOptions.sortBy = {name: dir}
     }
     if (elSortBy.value === 'Rating'){
         gQueryOptions.sortBy = {rating: dir}
+    }
+    render()
+}
+
+// pages
+
+function onNextPage(){
+    const totalPageCount = getTotalPageCount(gQueryOptions)
+
+    if (totalPageCount > gQueryOptions.page.idx + 1){
+        gQueryOptions.page.idx++
+    } else {
+        gQueryOptions.page.idx = 0 
+    }
+    render()
+
+}
+
+function onPrevPage(){
+    const totalPageCount = getTotalPageCount(gQueryOptions)
+
+    if (gQueryOptions.page.idx >= 1 ){
+        gQueryOptions.page.idx--
+    } else {
+        gQueryOptions.page.idx = totalPageCount - 1
     }
     render()
 }

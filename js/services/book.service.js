@@ -10,7 +10,6 @@ var gStatistics = {
 
 function getBooks(options) {
   const books = _filterBooks(options.filterBy)
-  console.log(options)
   if (options.sortBy.name){
     books.sort((book1,book2) => (book1.name.localeCompare(book2.name)) * options.sortBy.name)
   }
@@ -18,7 +17,8 @@ function getBooks(options) {
     console.log('here');
     books.sort((book1,book2) => (book1.rating - book2.rating) * options.sortBy.rating)
   }
-  return books
+  const startIdx = options.page.idx * options.page.size
+  return books.slice(startIdx, startIdx + options.page.size)
 }
 
 function _filterBooks(filterBy) {
@@ -27,6 +27,11 @@ function _filterBooks(filterBy) {
       return book
     }
   })
+}
+
+function getTotalPageCount(options){
+  const cars = _filterBooks(options.filterBy)
+  return Math.ceil(cars.length / options.page.size)
 }
 
 function createBooks() {
