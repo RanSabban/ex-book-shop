@@ -64,17 +64,15 @@
     <section class = "grid-container"></section>
 
     <dialog class = "book-edit-modal" onclose = "onCloseCarEdit()">
-        <form onsubmit="onSaveCar()" method="dialog">
+        <form class="book-edit-form" onsubmit="onSaveCar()" method="dialog">
             <h2>Add Book</h2>
             <input class = "book-add-name" type="text" placeholder="Enter book name">
-            <input class = "book-add-price" type="number" placeholder="Add book price">
+            <input class = "book-add-price" type="number" placeholder="Price">
             <button onclick="minusBtnRating(this)" class = "minus-btn" type="button">-</button>
             <input class = "book-add-rating" type="number" min="1" max="5">
             <button onclick="plusBtnRating(this)" class = "plus-btn" type="button">+</button>
-            <div class = "actions">
-                <button type="button" onclick="onCloseCarEdit()">Cancel</button>
-                <button>Save</button>
-            </div>
+                <button class="cancel-btn" type="button" onclick="onCloseCarEdit()">Cancel</button>
+                <button class="save-btn">Save</button>
         </form>
     </dialog>
     
