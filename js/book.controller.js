@@ -11,6 +11,7 @@ function oninit(){
     render()
     updateStatistics()
     renderStatistics()
+    setTimeout(animatedGifStop,4500)
 }
 
 var gIsDescendingRating = false
@@ -204,18 +205,33 @@ function minRating(el){
 function onSetSortBy(strAction){
     // const elSortBy = document.querySelector('.sort-by select')
     // const elDir = document.querySelector('.sort-desc')
+    const elCellName = document.querySelector('.sort-by-name')
+    const elCellRating = document.querySelector('.sort-by-rating')
+    const elCellPrice = document.querySelector('.sort-by-price')
+
     gQueryOptions.sortBy = {}
     if (strAction === 'Name'){
         gIsDescendingName = !gIsDescendingName
-        gQueryOptions.sortBy = {rating: gIsDescendingName ? 1 : -1}
+        gQueryOptions.sortBy = {name: gIsDescendingName ? 1 : -1}
+        const elCellName = document.querySelector('.sort-by-name')
+        gIsDescendingName ? elCellName.innerText = 'Title +' : elCellName.innerText = 'Title -'
+        elCellRating.innerText = 'Rating'
+        elCellPrice.innerText = 'Price'
     }
     if (strAction === 'Rating'){
         gIsDescendingRating = !gIsDescendingRating
         gQueryOptions.sortBy = {rating: gIsDescendingRating ? 1 : -1}
+        const elCellRating = document.querySelector('.sort-by-rating')
+        gIsDescendingRating ? elCellRating.innerText = 'Rating +' : elCellRating.innerText = 'Rating -'
+        elCellPrice.innerText = 'Price'
+        elCellName.innerText = 'Title'
     }
     if (strAction === 'Price'){
         gIsDescendingPrice = !gIsDescendingPrice
-        gQueryOptions.sortBy = {rating: gIsDescendingPrice ? 1 : -1}
+        gQueryOptions.sortBy = {price: gIsDescendingPrice ? 1 : -1}
+        gIsDescendingPrice ? elCellPrice.innerText = 'Price +' : elCellPrice.innerText = 'Price -'
+        elCellName.innerText = 'Title'
+        elCellRating.innerText = 'Rating'
     }
   
     render()

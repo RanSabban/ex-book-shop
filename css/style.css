@@ -1,9 +1,24 @@
 body {
     display: grid;
     text-align: center;
-    background-color: whitesmoke;
+    background-color: #F8F1E8;
     justify-content: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.img-book-logo1{
+    margin-block-start: 5vh;
+    margin-block-end: 5vh;
+    justify-self: center;
+    height: 30vh;
+}
+
+.img-book-logo2{
+    display: none;
+    margin-block-start: 5vh;
+    margin-block-end: 5vh;
+    justify-self: center;
+    height: 30vh;
 }
 
 h1 {
@@ -13,12 +28,17 @@ h1 {
 
 button{
     cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 button:hover{
     /* font-weight: bold; */
     background-color: rgb(105, 0, 147,0.8);
     transition: 0.5s;
+}
+
+.above-table{
+    font-size: smaller;
 }
 
 table,
@@ -65,7 +85,7 @@ td{
     width: 10vw;
     justify-self: center;
     background: rgb(14, 159, 255,0.8);
-    color: rgb(255, 255, 255,0.8);
+    color: #F8F1E8;
 }
 
 .next-page{
@@ -75,7 +95,7 @@ td{
     justify-self: end;
     align-self: end;
     background: rgb(14, 159, 255,0.8);
-    color: rgb(255, 255, 255,0.8);
+    color: #F8F1E8;
 }
 
 
@@ -86,7 +106,7 @@ td{
     justify-self: start;
     align-self: end;
     background: rgb(14, 159, 255,0.8);
-    color: rgb(255, 255, 255,0.8);
+    color: #F8F1E8;
 }
 
 form{
@@ -104,7 +124,7 @@ form{
     width: 7vw;
     justify-self: end;
     background: rgb(14, 159, 255,0.8);
-    color: rgb(255, 255, 255,0.8);
+    color: #F8F1E8;
 }
 
 .min-rating{
@@ -112,7 +132,24 @@ form{
     grid-column: 1;
     /* width: 10vw; */
     justify-self: start;
-    margin-inline-start: 5px;
+    margin-block-start: 5px;
+    color: #F8F1E8;
+}
+
+.minimum-rating{
+    color:#F8F1E8,0.8;
+    background-color: #373737,0.5;
+    border: 6px,solid,transparent;
+    width: 21vw;
+}
+
+.display-selector{
+    grid-row: 3;
+    grid-column: 2;
+    width: 10vw;
+    justify-self: center;
+    background: rgb(14, 159, 255,0.8);
+    color: rgb(255, 255, 255,0.8);
 }
 
 

@@ -15,3 +15,11 @@ function getRandomIntInclusive(min, max) {
 	max = Math.floor(max)
 	return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive
 }
+
+function animatedGifStop(){
+    const gif = document.querySelector('.img-book-logo1')
+    const img = document.querySelector('.img-book-logo2')
+        gif.style.display = 'none'
+        img.style.display = 'block'
+}
+

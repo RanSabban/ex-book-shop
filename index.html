@@ -9,8 +9,8 @@
 </head>
 
 <body onload="oninit()">
-    <h1>Welcome to the book shop!</h1>
-
+    <img class="img-book-logo1" src="img/Welcome to the book shop1.gif">
+    <img class="img-book-logo2" src="img/Welcome to the book shop2.jpg">
     <section class="buttons">
         <form class = "filter-books">
         <section class="search-box">
@@ -32,6 +32,7 @@
         <button class="prev-page" onclick="onPrevPage()">Previous Page</button>
         <button class="add-book-btn" onclick="onAddBook()">Add Book</button>
         <button class="next-page" onclick="onNextPage()">Next Page</button>
+        <button onclick = "toggleDisplay()" class = 'display-selector'>Grid/Table</button>
     </section>
 
     <!-- <section class = "sort-by">
@@ -43,11 +44,7 @@
         <span>Descending</span>
         <input class = "sort-desc" type="checkbox" oninput="onSetSortBy()">
     </section> -->
-
-    <section display-selector-continaer>
-        <button onclick = "toggleDisplay()" class = 'display-selector'>Grid/Table</button>
-    </section>
-
+    <h2 class = "above-table">You can sort by tapping the headers!</h2>
     <section class="table-container">
         <table>
             <thead>
